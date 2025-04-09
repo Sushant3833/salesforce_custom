@@ -12,11 +12,14 @@ def create_sales_order(**kwargs):
     customer = kwargs.get("customer")
     transaction_date = kwargs.get("transaction_date")
     items = kwargs.get("items", [])
+    price_list = kwargs.get("price_list") or "Standard Selling"
     default_warehouse = kwargs.get("default_warehouse") or "Stores - EGSPL"
 
     so = frappe.new_doc("Sales Order")
     so.customer = customer
     so.transaction_date = transaction_date
+    so.selling_price_list = price_list
+
 
     for item in items:
         # Ensure qty and rate are provided and valid
